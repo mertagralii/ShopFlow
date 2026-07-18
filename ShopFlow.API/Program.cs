@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using ShopFlow.API.Middleware;
 using ShopFlow.Application.Interface;
 using ShopFlow.Infrastructure.Persistence;
 using ShopFlow.Infrastructure.Repositories;
@@ -21,7 +22,11 @@ builder.Services.AddMediatR(cfg =>
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 var app = builder.Build();
+
+app.UseExceptionHandler();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
