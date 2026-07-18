@@ -1,7 +1,9 @@
-using Microsoft.AspNetCore.Http;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ShopFlow.API.DTOs;
-using ShopFlow.Application.Interface;
+using ShopFlow.Application.Features.Categories.Commands.CreateCategory;
+using ShopFlow.Application.Features.Categories.Queries.GetAllCategory;
+using ShopFlow.Application.Features.Categories.Queries.GetCategoryById;
 using ShopFlow.Domain.Entity;
 
 namespace ShopFlow.API.Controllers
@@ -10,17 +12,16 @@ namespace ShopFlow.API.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ICategoryRepository _categoryRepository;
-
-        public CategoriesController(ICategoryRepository categoryRepository)
+        private readonly IMediator _mediator;
+        public CategoriesController(IMediator mediator)
         {
-            _categoryRepository = categoryRepository;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<CategoryResponse>>> GetAll()
         {
-            var categories = await _categoryRepository.GetAllAsync();
+            var categories = await _mediator.Send(new GetAllCategoryQuery());
             return Ok(categories.Select(ToResponse));
         }
 
@@ -31,7 +32,7 @@ namespace ShopFlow.API.Controllers
             {
                 return BadRequest("Invalid id");
             }
-            var category = await _categoryRepository.GetByIdAsync(id);
+            var category = await _mediator.Send(new GetCategoryByIdQuery(id));
             if (category == null)
             {
                 return NotFound();
@@ -42,9 +43,8 @@ namespace ShopFlow.API.Controllers
         [HttpPost]
         public async Task<ActionResult<CategoryResponse>> Create(CreateCategoryRequest request)
         {
-            var category = new Category(request.Name, request.Description);
-            await _categoryRepository.AddAsync(category);
-            return CreatedAtAction(nameof(GetById), new { id = category.Id }, ToResponse(category));
+            var id = await _mediator.Send(new CreateCategoryCommand(request.Name, request.Description));
+            return CreatedAtAction(nameof(GetById), new { id }, null);
         }
 
         private static CategoryResponse ToResponse(Category c)
