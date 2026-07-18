@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopFlow.API", "ShopFlow.API\ShopFlow.API.csproj", "{D2BD3EC8-2D77-4B54-9E24-43BE3506FEE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopFlow.Domain", "ShopFlow.Domain\ShopFlow.Domain.csproj", "{BA342885-D406-4AAC-B4BD-B2CFBB436E39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopFlow.Application", "ShopFlow.Application\ShopFlow.Application.csproj", "{076F4A1C-1801-4768-B757-42FEB27ED9D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopFlow.Infrastructure", "ShopFlow.Infrastructure\ShopFlow.Infrastructure.csproj", "{5BE623CD-6603-410A-B997-415DAC360457}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2BD3EC8-2D77-4B54-9E24-43BE3506FEE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2BD3EC8-2D77-4B54-9E24-43BE3506FEE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2BD3EC8-2D77-4B54-9E24-43BE3506FEE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2BD3EC8-2D77-4B54-9E24-43BE3506FEE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA342885-D406-4AAC-B4BD-B2CFBB436E39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA342885-D406-4AAC-B4BD-B2CFBB436E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA342885-D406-4AAC-B4BD-B2CFBB436E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA342885-D406-4AAC-B4BD-B2CFBB436E39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{076F4A1C-1801-4768-B757-42FEB27ED9D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{076F4A1C-1801-4768-B757-42FEB27ED9D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{076F4A1C-1801-4768-B757-42FEB27ED9D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{076F4A1C-1801-4768-B757-42FEB27ED9D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BE623CD-6603-410A-B997-415DAC360457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BE623CD-6603-410A-B997-415DAC360457}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BE623CD-6603-410A-B997-415DAC360457}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BE623CD-6603-410A-B997-415DAC360457}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
