@@ -37,7 +37,7 @@ namespace ShopFlow.API.Controllers
             {
                 return NotFound();
             }
-            return Ok(ToResponse(product));
+            return Ok(product);
         }
 
         [HttpPost]
@@ -52,6 +52,6 @@ namespace ShopFlow.API.Controllers
         {
             return new ProductResponse(p.Id, p.CategoryId, p.Name, p.Price, p.Stock, p.Description, p.IsActive, p.CreatedAt);
         }
-            
-}
+
+    }
 }
