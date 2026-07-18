@@ -1,6 +1,10 @@
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShopFlow.API.DTOs;
+using ShopFlow.Application.Features.Products.Commands.CreateProduct;
+using ShopFlow.Application.Features.Products.Queries;
+using ShopFlow.Application.Features.Products.Queries.GetProductById;
 using ShopFlow.Application.Interface;
 using ShopFlow.Domain.Entity;
 
@@ -10,17 +14,17 @@ namespace ShopFlow.API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductRepository _productRepository;
+        private readonly IMediator _mediator;
 
-        public ProductsController(IProductRepository productRepository)
+        public ProductsController(IMediator mediator)
         {
-            _productRepository = productRepository;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<ProductResponse>>> GetAll()
         {
-            var products = await _productRepository.GetAllAsync();
+            var products = await _mediator.Send(new GetAllProductsQuery());
             return Ok(products.Select(ToResponse));
         }
 
@@ -32,20 +36,19 @@ namespace ShopFlow.API.Controllers
                 return BadRequest("Invalid id");
             }
 
-            var product = await _productRepository.GetByIdAsync(id);
+            var product = await _mediator.Send(new GetProductByIdQuery(id));
             if (product == null)
             {
                 return NotFound();
             }
-            return Ok(product);
+            return Ok(ToResponse(product));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProductResponse>> Create(CreateProductRequest request)
+        public async Task<IActionResult> Create(CreateProductRequest request)
         {
-            var product = new Product(request.CategoryId, request.Name, request.Price, request.Stock, request.Description);
-            await _productRepository.AddAsync(product);
-            return CreatedAtAction(nameof(GetById), new { id = product.Id }, ToResponse(product));
+            var id = await _mediator.Send(new CreateProductCommand(request.CategoryId, request.Name, request.Price, request.Stock, request.Description));
+            return CreatedAtAction(nameof(GetById), new { id }, null);
         }
 
         private static ProductResponse ToResponse(Product p)
